@@ -1,9 +1,25 @@
 .selected-match {
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.selected-match>a {
+    align-self: center;
+    color: blue;
+    text-decoration: underline;
+    font-size: 1.5em;
+    background-color: transparent;
+    border: none;
+    font-style: italic;
+}
+
+.selected-match-info {
+    display: flex;
     justify-content: space-between;
 }
 
-.selected-match img {
+.selected-match-info img {
     width: 200px;
     height: 200px;
 }
@@ -24,6 +40,7 @@
 
 .result {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }

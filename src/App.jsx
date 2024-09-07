@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import useReadFiles from "./hooks/useReadFiles";
 import { Route, Routes } from "react-router-dom";
 import HomePage from "./components/Homepage";
@@ -6,10 +5,11 @@ import MatchDetails from "./components/MatchDetails";
 import TeamDetails from "./components/TeamDetails";
 import { FilesContext } from "./context/FilesContext";
 import Groups from "./components/Groups";
+import Navigation from "./components/Navigation";
+import AllMatches from "./components/AllMatches";
 
 function App() {
-  const [data, setData] = useState([]);
-
+  //all files path
   const paths = [
     "/data/matches.csv",
     "/data/players.csv",
@@ -24,11 +24,13 @@ function App() {
   return (
     <FilesContext.Provider value={allFilesData}>
       <div style={{ fontFamily: "Arial, Helvetica, sans-serif" }}>
+        <Navigation />
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/matchDetails" element={<MatchDetails />} />
+          <Route path="/matchDetails/:id" element={<MatchDetails />} />
           <Route path="/teamDetails" element={<TeamDetails />} />
           <Route path="/groups" element={<Groups />} />
+          <Route path="/allMatches" element={<AllMatches />} />
         </Routes>
       </div>
     </FilesContext.Provider>

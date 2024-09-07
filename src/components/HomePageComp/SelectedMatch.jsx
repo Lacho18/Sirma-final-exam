@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "../../styles/SelectedMatch.css";
 
 export default function SelectedMatch({ selectedMatch }) {
@@ -9,19 +10,22 @@ export default function SelectedMatch({ selectedMatch }) {
 
   return (
     <div className="selected-match">
-      <div className="selected-team-view">
-        <img src={selectedMatch.teamAImage} />
-        <p>{selectedMatch.teamAName}</p>
+      <div className="selected-match-info">
+        <div className="selected-team-view">
+          <img src={selectedMatch.teamAImage} />
+          <p>{selectedMatch.teamAName}</p>
+        </div>
+        <div className="result">
+          <p>
+            <span>{matchResult[0]}</span> : <span>{matchResult[1]}</span>
+          </p>
+        </div>
+        <div className="selected-team-view">
+          <img src={selectedMatch.teamBImage} />
+          <p>{selectedMatch.teamBName}</p>
+        </div>
       </div>
-      <div className="result">
-        <p>
-          <span>{matchResult[0]}</span> : <span>{matchResult[1]}</span>
-        </p>
-      </div>
-      <div className="selected-team-view">
-        <img src={selectedMatch.teamBImage} />
-        <p>{selectedMatch.teamBName}</p>
-      </div>
+      <Link to={`/matchDetails/${selectedMatch.ID}`}>View more</Link>
     </div>
   );
 }

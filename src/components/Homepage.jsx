@@ -6,11 +6,17 @@ import SelectedMatch from "./HomePageComp/SelectedMatch";
 export default function HomePage() {
   const filesData = useContext(FilesContext);
   const [selectedMatch, setSelectedMatch] = useState(null);
+  const [error, setError] = useState({});
 
+  //Gets all the tournament matches (which are after date 26/6/2024)
   const tournamentMatches = getTournamentMatches();
-  const structuredMatches = getTeamsNames(tournamentMatches);
 
-  console.log(structuredMatches);
+  let structuredMatches = [];
+  //Prevents from infinite re-renders
+  if (error.error === undefined) {
+    //Gets more data for the matches such as team name, image and winner of the match
+    structuredMatches = getTeamsNames(tournamentMatches);
+  }
 
   const eighthFinals = structuredMatches.slice(0, 8);
   const quarterFinals = structuredMatches.slice(8, 12);
@@ -18,6 +24,7 @@ export default function HomePage() {
   const finals = structuredMatches.slice(14, 15);
 
   useEffect(() => {
+    //Sets the first state value always on the final
     setSelectedMatch(finals[0]);
   }, []);
 
@@ -43,40 +50,74 @@ export default function HomePage() {
 
   //Gets the names of the teams and add them to the matches objects
   function getTeamsNames(matches) {
-    if (matches.length === 0) return "Invalid parameters";
-    if (!Array.isArray(matches)) return "Invalid parameters";
+    if (matches.length === 0) {
+      setError({ error: "Invalid parameters" });
+      return [];
+    }
+    if (!Array.isArray(matches)) {
+      setError({ error: "Invalid parameters" });
+      return [];
+    }
 
-    let teams = filesData.find((indexValue) => indexValue.dataType === "teams");
-
-    let structuredMatches = matches.map((match) => {
-      //Finds the name of Team A
-      let teamA = teams.data.find(
-        (indexValue) => indexValue.ID === match.ATeamID
+    try {
+      //Gets file data for the teams
+      let teams = filesData.find(
+        (indexValue) => indexValue.dataType === "teams"
       );
-      //Finds the name of Team B
-      let teamB = teams.data.find(
-        (indexValue) => indexValue.ID === match.BTeamID
-      );
 
-      let result = match.Score.split("-");
-      let winner = result[0] > result[1] ? teamA.Name : teamB.Name;
-
-      if (teamA && teamB) {
-        return {
-          ...match,
-          teamAName: teamA.Name,
-          teamAImage: teamA.Image,
-          teamBName: teamB.Name,
-          teamBAImage: teamB.Image,
-          winner,
-        };
-      } else {
-        return { ...match };
+      if (teams === undefined) {
+        setError({ error: "No teams found" });
+        return [];
       }
-    });
 
-    return structuredMatches;
+      let structuredMatches = matches.map((match) => {
+        //Finds the name of Team A
+        let teamA = teams.data.find(
+          (indexValue) => indexValue.ID === match.ATeamID
+        );
+        //Finds the name of Team B
+        let teamB = teams.data.find(
+          (indexValue) => indexValue.ID === match.BTeamID
+        );
+
+        let result = match.Score.split("-");
+        let winner = result[0] > result[1] ? teamA.Name : teamB.Name;
+
+        if (teamA && teamB) {
+          return {
+            ...match,
+            teamAName: teamA.Name,
+            teamAImage: teamA.Image,
+            teamBName: teamB.Name,
+            teamBAImage: teamB.Image,
+            winner,
+          };
+        } else {
+          return {
+            ...match,
+            teamAName: "",
+            teamBName: "",
+            teamAImage: "",
+            teamBAImage: "",
+            winner: "",
+          };
+        }
+      });
+
+      if (structuredMatches.length !== 0) {
+        return structuredMatches;
+      } else {
+        setError({ error: "Invalid parameters" });
+        return [];
+      }
+    } catch (error) {
+      console.error(error);
+      setError({ error: error.message });
+      return [];
+    }
   }
+
+  if (error.error) return <div className="error">{error.error}</div>;
 
   return (
     <div className="home-page-main-div">

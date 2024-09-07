@@ -1,0 +1,34 @@
+.navigation {
+    width: 100%;
+    position: sticky;
+    display: flex;
+    background-color: #1021c2;
+    padding: 0 30px;
+    box-sizing: border-box;
+}
+
+.navigation img {
+    width: 140px;
+    height: 50px;
+}
+
+.navigation-links {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 30px;
+}
+
+.navigation-links * {
+    text-decoration: none;
+    color: white;
+    margin-left: 30px;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 1.25em;
+}
+
+.navigation-links *:hover {
+    background-color: #5561cc;
+    color: rgb(245, 188, 81);
+}
