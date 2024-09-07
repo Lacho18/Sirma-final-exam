@@ -5,6 +5,7 @@ import HomePage from "./components/Homepage";
 import MatchDetails from "./components/MatchDetails";
 import TeamDetails from "./components/TeamDetails";
 import { FilesContext } from "./context/FilesContext";
+import Groups from "./components/Groups";
 
 function App() {
   const [data, setData] = useState([]);
@@ -17,15 +18,19 @@ function App() {
   ];
 
   const allFilesData = useReadFiles(paths);
-  console.log(allFilesData);
+
+  if (allFilesData.length === 0) return <div>Loading....</div>;
 
   return (
     <FilesContext.Provider value={allFilesData}>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/matchDetails" element={<MatchDetails />} />
-        <Route path="teamDetails" element={<TeamDetails />} />
-      </Routes>
+      <div style={{ fontFamily: "Arial, Helvetica, sans-serif" }}>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/matchDetails" element={<MatchDetails />} />
+          <Route path="/teamDetails" element={<TeamDetails />} />
+          <Route path="/groups" element={<Groups />} />
+        </Routes>
+      </div>
     </FilesContext.Provider>
   );
 }

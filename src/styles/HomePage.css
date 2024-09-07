@@ -1,0 +1,95 @@
+.home-page-main-div {
+    width: 100vw;
+    height: auto;
+    min-height: 100vh;
+    background-color: rgb(215, 249, 243);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
+    padding: 50px 0;
+}
+
+.tournament-structure {
+    width: 90%;
+    height: 500px;
+    margin: 0 auto;
+    border: 4px solid brown;
+    border-radius: 20px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    background-color: #3F9B0B;
+}
+
+.tournament-structure img {
+    position: absolute;
+    width: 70%;
+    height: 85%;
+    left: 50%;
+    transform: translate(-50%, 7%);
+    z-index: 10;
+}
+
+/*Positioning of the tournament elements*/
+.tournaments-view {
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.tournaments-view>div {
+    display: flex;
+    flex-direction: column;
+}
+
+.eightFinals {
+    margin-top: 12px;
+    gap: 5px;
+}
+
+.quarterFinals {
+    gap: 65px;
+    margin-top: 40px;
+    margin-left: -100px;
+}
+
+.semiFinals {
+    justify-content: space-around;
+    margin-right: -100px;
+}
+
+.final {
+    justify-content: center;
+}
+
+.match-names {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    border: 2px solid black;
+    border-radius: 10px;
+    width: 90px;
+    background-color: white;
+    z-index: 50;
+    cursor: pointer;
+}
+
+.match-names:hover {
+    border: 2px solid rgb(206, 206, 206);
+}
+
+.match-names p {
+    padding: 4px;
+}
+
+/*-----------------------------------------------------*/
+
+.selected-match-div {
+    width: 50%;
+    height: auto;
+    padding: 20px;
+    box-sizing: border-box;
+    border: 5px solid black;
+}

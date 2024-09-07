@@ -1,0 +1,40 @@
+.selected-match {
+    display: flex;
+    justify-content: space-between;
+}
+
+.selected-match img {
+    width: 200px;
+    height: 200px;
+}
+
+.selected-team-view {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.selected-team-view p {
+    font-size: 2.5em;
+    font-weight: bold;
+    margin: 10px;
+}
+
+.result {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.result p {
+    font-size: 2.75em;
+    align-self: center;
+    color: gray;
+}
+
+.result span {
+    font-weight: bold;
+    color: black;
+}

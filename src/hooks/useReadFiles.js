@@ -8,7 +8,8 @@ async function readFile(path) {
     let fileRows = text.trim().split('\n');
 
     //Removes the first line of the file, where are the column names and set them to a variable
-    let columnNames = fileRows.shift().split(',');
+    //Replace method removes the \r symbol which appeared in every last column name
+    let columnNames = fileRows.shift().replace('\r', "").split(',');
 
     //For every line slits the data by ',' and insert it in object structure, with keys equal to the names of the column
     let allData = fileRows.map(fileRow => {
@@ -37,7 +38,6 @@ const useReadFiles = (filePaths) => {
                     if (!filePath.includes('.csv')) return { error: "The file should be .csv format!" };
 
                     let fileType = filePath.slice(filePath.lastIndexOf('/') + 1, filePath.indexOf('.'));
-                    console.log(fileType);
 
                     let object = {
                         dataType: fileType,
@@ -54,6 +54,8 @@ const useReadFiles = (filePaths) => {
 
         useEffectFunction();
     }, []);
+
+    console.log(filesData);
 
     return filesData;
 }
