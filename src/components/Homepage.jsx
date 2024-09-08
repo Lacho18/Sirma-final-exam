@@ -94,7 +94,7 @@ export default function HomePage() {
             teamAName: teamA.Name,
             teamAImage: teamA.Image,
             teamBName: teamB.Name,
-            teamBAImage: teamB.Image,
+            teamBImage: teamB.Image,
             winner,
           };
         } else {

@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import "../../styles/SelectedMatch.css";
 
 export default function SelectedMatch({ selectedMatch }) {
+  console.log(selectedMatch);
   if (!selectedMatch) return <div>Select a match from the tournament</div>;
 
   const matchResult = selectedMatch.Score.split("-");

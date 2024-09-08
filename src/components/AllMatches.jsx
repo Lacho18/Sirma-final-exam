@@ -70,7 +70,7 @@ export default function AllMatches() {
               teamAName: teamA.Name,
               teamAImage: teamA.Image,
               teamBName: teamB.Name,
-              teamBAImage: teamB.Image,
+              teamBImage: teamB.Image,
               formattedDate,
               winner,
             });

@@ -6,10 +6,6 @@ import MatchHeader from "./MatchDetails/MatchHeader";
 import TeamFormation from "./MatchDetails/TeamFormation";
 import TeamDetails from "./MatchDetails/TeamDetails";
 
-/*
-  Napravi stranicata za match deatil
-*/
-
 export default function MatchDetails() {
   const { id } = useParams();
   const filesData = useContext(FilesContext);
@@ -100,6 +96,8 @@ export default function MatchDetails() {
       selectedMatch.winner =
         result[0] > result[1]
           ? selectedMatch.teamAData.Name
+          : result[0] === result[1]
+          ? ""
           : selectedMatch.teamBData.Name;
 
       return selectedMatch;
@@ -170,14 +168,14 @@ export default function MatchDetails() {
             name: matchData.teamAData.Name,
             image: matchData.teamAData.Image,
           }}
-          players={matchData.playersTeamA.slice(0, 11)}
+          players={matchData.playersTeamA}
         />
         <TeamDetails
           teamInfo={{
             name: matchData.teamBData.Name,
             image: matchData.teamBData.Image,
           }}
-          players={matchData.playersTeamB.slice(0, 11)}
+          players={matchData.playersTeamB}
         />
       </div>
     </div>

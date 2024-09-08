@@ -1,4 +1,4 @@
-export default function GroupSection({ groupData }) {
+export default function GroupSection({ groupData, selectionHandle }) {
   return (
     <div className="group-section-main-div">
       <p style={{ fontSize: "1.5em", padding: "5px" }}>
@@ -6,7 +6,12 @@ export default function GroupSection({ groupData }) {
       </p>
       <div>
         {groupData.teams.map((indexValue, index) => (
-          <div key={indexValue.ID} className="group-section-line">
+          <div
+            to={`/groups/${indexValue.Name}`}
+            key={indexValue.ID}
+            className="group-section-line"
+            onClick={() => selectionHandle(indexValue.ID)}
+          >
             <div
               style={{
                 display: "flex",

@@ -67,6 +67,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
 }
 
 .match-result-view p {
@@ -197,7 +198,7 @@
 .team-details-box {
     display: flex;
     width: 90%;
-    height: 500px;
+    height: 550px;
     margin: 40px auto;
     background-image: linear-gradient(to right, #6769a8, #3b3fa1);
     border: 8px solid #0e0f47;
@@ -224,13 +225,14 @@
 .players-info {
     flex-basis: 50%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
 .players-table {
     width: 80%;
-    height: 90%;
+    height: 85%;
     margin: 0 auto;
     border: 7px solid black;
     background-color: #cdcefd;
@@ -239,24 +241,41 @@
     flex-direction: column;
 }
 
-.players-table>div {
-    font-size: 0.38em;
+.table-buttons {
+    padding-bottom: 10px;
+    width: 50%;
     display: flex;
-    justify-content: space-between;
-    align-items: stretch;
-    padding: 3px;
+    justify-content: space-evenly;
+}
+
+.table-buttons button {
+    padding: 5px;
+    border-radius: 10px;
+    font-size: 1.35em;
+    border: 3px solid #0e0f47;
+    background-color: #362dad;
+    color: white;
 }
 
 .players-table p,
 .players-table div {
-    border-bottom: 1px solid black;
     flex-basis: 25%;
     text-align: center;
+    align-items: center;
+}
+
+.table-line {
+    font-size: 0.30em;
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    border-bottom: 1px solid black;
 }
 
 .position-text {
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 .position-text>p {

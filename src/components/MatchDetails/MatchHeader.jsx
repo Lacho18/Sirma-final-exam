@@ -1,25 +1,31 @@
 export default function MatchHeader({ matchData }) {
+  const result = matchData.Score.split("-");
+  console.log(matchData);
   return (
     <div className="match-result">
       <div className="result-view">
         <div className="left-result">
-          <p style={{ fontSize: "3em" }}>Winner</p>
-          <div>
-            {matchData.winner === matchData.teamAData.Name ? (
-              <img
-                className="result-img"
-                src={matchData.teamAData.Image}
-                alt="null"
-              />
-            ) : (
-              <img
-                className="result-img"
-                src={matchData.teamBData.Image}
-                alt="null"
-              />
-            )}
-            <p style={{ fontSize: "2.5em" }}>{matchData.winner}</p>
-          </div>
+          <p style={{ fontSize: "3em" }}>
+            {Number(result[0]) === Number(result[1]) ? "Draw" : "Winner"}
+          </p>
+          {Number(result[0]) !== Number(result[1]) && (
+            <div>
+              {matchData.winner === matchData.teamAData.Name ? (
+                <img
+                  className="result-img"
+                  src={matchData.teamAData.Image}
+                  alt="null"
+                />
+              ) : (
+                <img
+                  className="result-img"
+                  src={matchData.teamBData.Image}
+                  alt="null"
+                />
+              )}
+              <p style={{ fontSize: "2.5em" }}>{matchData.winner}</p>
+            </div>
+          )}
         </div>
         <div className="right-result">
           <img

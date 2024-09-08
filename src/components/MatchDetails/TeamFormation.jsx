@@ -22,7 +22,7 @@ export default function TeamFormation({ teamData, teamPositions }) {
           >
             <div className="GK">
               {teamPositions.GK.map((player) => (
-                <div className="player-diagram">
+                <div key={player.ID} className="player-diagram">
                   <p>{player.FullName}</p>
                   <div
                     style={{
@@ -36,7 +36,7 @@ export default function TeamFormation({ teamData, teamPositions }) {
 
             <div className="DF">
               {teamPositions.DF.map((player) => (
-                <div className="player-diagram">
+                <div key={player.ID} className="player-diagram">
                   <p>{player.FullName}</p>
                   <div
                     style={{
@@ -50,7 +50,7 @@ export default function TeamFormation({ teamData, teamPositions }) {
 
             <div className="MF">
               {teamPositions.MF.map((player) => (
-                <div className="player-diagram">
+                <div key={player.ID} className="player-diagram">
                   <p>{player.FullName}</p>
                   <div
                     style={{
@@ -64,7 +64,7 @@ export default function TeamFormation({ teamData, teamPositions }) {
 
             <div className="FW">
               {teamPositions.FW.map((player) => (
-                <div className="player-diagram">
+                <div key={player.ID} className="player-diagram">
                   <p>{player.FullName}</p>
                   <div
                     style={{

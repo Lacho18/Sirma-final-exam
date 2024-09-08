@@ -4,8 +4,11 @@ async function readFile(path) {
     let file = await fetch(path);
     let text = await file.text();
 
-    //Slits the text on every new line
-    let fileRows = text.trim().split('\n');
+    //Used to find all \r escape sequences in the file 
+    let regex = /\r/g;
+
+    //Splits the text on every new line and removes every \r symbol
+    let fileRows = text.trim().replace(/\r/g, '').split('\n');
 
     //Removes the first line of the file, where are the column names and set them to a variable
     //Replace method removes the \r symbol which appeared in every last column name
