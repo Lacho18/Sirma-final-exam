@@ -2,7 +2,7 @@
     width: 100vw;
     height: auto;
     min-height: 100vh;
-    background-color: rgb(215, 249, 243);
+    background-color: #3035c2;
 }
 
 .title {
@@ -28,8 +28,8 @@
 .group-section-main-div {
     width: 100%;
     height: auto;
-    border: 1px solid lightgrey;
-    background-color: white;
+    border: 2px solid lightgrey;
+    background-color: #9bd2de;
     border-radius: 18px;
 }
 

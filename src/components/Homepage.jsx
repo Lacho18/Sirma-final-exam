@@ -42,10 +42,14 @@ export default function HomePage() {
       //Parse date to work with multiple date formats
       let currentMatchDate = new Date(Date.parse(match.Date));
 
+      console.log(currentMatchDate);
+
       if (currentMatchDate > groupsFinalDate) return true;
 
       return false;
     });
+
+    console.log(filteredMatches.length);
     return filteredMatches;
   }
 
