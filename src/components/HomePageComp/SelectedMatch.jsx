@@ -25,7 +25,12 @@ export default function SelectedMatch({ selectedMatch }) {
           <p>{selectedMatch.teamBName}</p>
         </div>
       </div>
-      <Link to={`/matchDetails/${selectedMatch.ID}`}>View more</Link>
+      <Link
+        style={{ color: "#11123d" }}
+        to={`/matchDetails/${selectedMatch.ID}`}
+      >
+        View more
+      </Link>
     </div>
   );
 }

@@ -2,6 +2,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { FilesContext } from "../context/FilesContext";
 import "../styles/HomePage.css";
 import SelectedMatch from "./HomePageComp/SelectedMatch";
+import HomePageHeader from "./HomePageComp/HomePageHeader";
 
 export default function HomePage() {
   const filesData = useContext(FilesContext);
@@ -121,7 +122,10 @@ export default function HomePage() {
 
   return (
     <div className="home-page-main-div">
-      <p style={{ fontSize: "2em" }}>
+      <div className="home-page-header">
+        <HomePageHeader />
+      </div>
+      <p style={{ fontSize: "2em", color: "white" }}>
         Bracket view of all matches in the tournament
       </p>
       <div className="tournament-structure">

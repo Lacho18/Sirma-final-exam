@@ -1,11 +1,26 @@
 import { useParams } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { FilesContext } from "../context/FilesContext";
+import "../styles/MatchDetails.css";
+import MatchHeader from "./MatchDetails/MatchHeader";
+import TeamFormation from "./MatchDetails/TeamFormation";
+import TeamDetails from "./MatchDetails/TeamDetails";
+
+/*
+  Napravi stranicata za match deatil
+*/
 
 export default function MatchDetails() {
   const { id } = useParams();
   const filesData = useContext(FilesContext);
   const [matchData, setMatchData] = useState({});
+  const positions = {
+    teamA: matchData.playersTeamA ? setPositions(matchData?.playersTeamA) : {},
+    teamB: matchData.playersTeamB ? setPositions(matchData?.playersTeamB) : {},
+  };
+
+  console.log(matchData);
+  console.log(positions);
 
   useEffect(() => {
     const structuredMatch = getMatchData();
@@ -80,6 +95,13 @@ export default function MatchDetails() {
         return { error: "No teams with given data found!" };
       }
 
+      //Setting the winner of the match
+      let result = selectedMatch.Score.split("-");
+      selectedMatch.winner =
+        result[0] > result[1]
+          ? selectedMatch.teamAData.Name
+          : selectedMatch.teamBData.Name;
+
       return selectedMatch;
     } catch (error) {
       console.error(error);
@@ -87,12 +109,77 @@ export default function MatchDetails() {
     }
   }
 
+  function setPositions(players) {
+    if (players.length === 0) {
+      return { error: "Invalid parameters" };
+    }
+    if (!Array.isArray(players)) {
+      return { error: "Invalid parameters" };
+    }
+
+    let objResult = {};
+    let titulars = players.slice(0, 11);
+    //Filters the positions in the team
+    objResult.GK = titulars.filter((player) => player.Position === "GK");
+    objResult.DF = titulars.filter((player) => player.Position === "DF");
+    objResult.MF = titulars.filter((player) => player.Position === "MF");
+    objResult.FW = titulars.filter((player) => player.Position === "FW");
+
+    //Sets team formation
+    objResult.formation = `${objResult.DF.length}-${objResult.MF.length}-${objResult.FW.length}`;
+
+    return objResult;
+  }
+
   if (matchData.error) return <div className="error">{matchData.error}</div>;
   if (!matchData.ID) return <div>Loading....</div>;
 
   return (
-    <div>
-      <h1>Match Details</h1>
+    <div className="match-details-main">
+      <MatchHeader matchData={matchData} />
+
+      <div className="match-navigation">
+        <a href={"#" + matchData.teamAData.Name + "Formation"}>
+          <span>{matchData.teamAData.Name}</span> formation
+        </a>
+        <a href={"#" + matchData.teamBData.Name + "Formation"}>
+          <span>{matchData.teamBData.Name}</span> formation
+        </a>
+        <a href={"#" + matchData.teamAData.Name + "Details"}>
+          <span>{matchData.teamAData.Name}</span> team details
+        </a>
+        <a href={"#" + matchData.teamBData.Name + "Details"}>
+          <span>{matchData.teamBData.Name}</span> team details
+        </a>
+      </div>
+      <div className="teams-formation">
+        <TeamFormation
+          teamData={matchData.teamAData}
+          teamPositions={positions.teamA}
+        />
+        <TeamFormation
+          teamData={matchData.teamBData}
+          teamPositions={positions.teamB}
+        />
+      </div>
+
+      <div className="team-details">
+        <p style={{ color: "white", fontSize: "2.5em" }}>Teams details</p>
+        <TeamDetails
+          teamInfo={{
+            name: matchData.teamAData.Name,
+            image: matchData.teamAData.Image,
+          }}
+          players={matchData.playersTeamA.slice(0, 11)}
+        />
+        <TeamDetails
+          teamInfo={{
+            name: matchData.teamBData.Name,
+            image: matchData.teamBData.Image,
+          }}
+          players={matchData.playersTeamB.slice(0, 11)}
+        />
+      </div>
     </div>
   );
 }

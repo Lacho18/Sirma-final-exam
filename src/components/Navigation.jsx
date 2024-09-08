@@ -5,7 +5,7 @@ import "../styles/Navigation.css";
 export default function Navigation() {
   return (
     <div className="navigation">
-      <img src="euro-img.png" />
+      <img src="euro-img1_0.png" />
       <div className="navigation-links">
         <Link to="/">Home</Link>
         <Link to="/groups">Groups</Link>
