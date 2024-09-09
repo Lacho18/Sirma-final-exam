@@ -1,3 +1,4 @@
+//Function that by given array of matches adds to every object fields for both team names, images and who is the winner
 function getTeamsNames(matches, filesData) {
     if (matches.length === 0) {
         return { error: "Invalid parameters" };
@@ -13,7 +14,6 @@ function getTeamsNames(matches, filesData) {
         );
 
         if (teams === undefined) {
-            setError({ error: "No teams found" });
             return { error: "No teams found" };
         }
 

@@ -8,7 +8,7 @@ export default function SelectedTeamGroup({
   nullSelectionHandle,
 }) {
   const [teamData, setTeamData] = useState({});
-  let statistics = setGroupStats(selectedTeam, teamData);
+  let statistics = setGroupStats(selectedTeam, teamData?.data);
 
   useEffect(() => {
     const structuredMatches = getSelectedTeamData();
@@ -91,6 +91,7 @@ export default function SelectedTeamGroup({
       </div>
       <div className="team-group-stats">
         <div className="team-stats-left">
+          <p className="groups-stats-text">Groups statistics</p>
           <img src={selectedTeam.Image} />
           <p>{selectedTeam.Name}</p>
         </div>
@@ -122,8 +123,13 @@ export default function SelectedTeamGroup({
         </div>
       </div>
       <div className="selected-matches-groups">
+        <p className="group-matches-title">
+          {selectedTeam.Name} groups matches
+        </p>
         {teamData.data &&
-          teamData.data.map((team) => <SelectedMatch selectedMatch={team} />)}
+          teamData.data.map((team) => (
+            <SelectedMatch key={team.ID} selectedMatch={team} />
+          ))}
       </div>
     </div>
   );

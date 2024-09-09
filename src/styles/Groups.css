@@ -63,14 +63,21 @@
 .selected-team-div {
     display: flex;
     flex-direction: column;
-    background-color: #47258a;
+    /*background-color: #47258a;*/
+    background-color: #3c1094;
     border: none;
 }
 
 .team-group-stats {
-    width: 100%;
+    width: 75%;
+    margin: 0 auto;
     height: 500px;
     display: flex;
+    border: 7px solid black;
+    border-radius: 30px;
+    /*background-color: #6d6184;*/
+    background-color: #858bf2;
+
 }
 
 .team-stats-left {
@@ -88,6 +95,12 @@
 
 .team-stats-left p {
     font-size: 2.3em;
+    font-weight: bold;
+}
+
+.groups-stats-text {
+    align-self: flex-start;
+    margin: -70px 0 0 30px;
 }
 
 .team-stats-right {
@@ -104,7 +117,8 @@
     justify-content: space-evenly;
     align-items: center;
     font-size: 2em;
-    background-color: #9c8fb5;
+    /*background-color: #9c8fb5;*/
+    background-color: #000080;
     border: 7px solid #18053d;
     padding: 0 40px;
     border-radius: 30px;
@@ -115,21 +129,36 @@
 }
 
 .back-button {
-    font-size: 2em;
+    font-size: 3em;
     background-color: transparent;
     border: none;
     cursor: pointer;
     color: white;
+    padding: 5px;
 }
 
+.back-button:hover {
+    background-color: rgba(121, 87, 189, 0.5);
+    border-top-left-radius: 20px;
+}
 
 .selected-matches-groups {
+    padding-top: 20px;
     width: 75%;
     align-self: center;
+    border: 7px solid black;
+    margin-top: 100px;
 }
 
 .selected-matches-groups>.selected-match {
     border: 10px solid black;
     margin: 40px 0;
     padding: 40px;
+    border: none;
+    border-bottom: 3px solid black;
+}
+
+.group-matches-title {
+    font-size: 2em;
+    font-weight: bold;
 }

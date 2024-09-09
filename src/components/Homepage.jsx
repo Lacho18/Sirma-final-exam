@@ -3,26 +3,36 @@ import { FilesContext } from "../context/FilesContext";
 import "../styles/HomePage.css";
 import SelectedMatch from "./HomePageComp/SelectedMatch";
 import HomePageHeader from "./HomePageComp/HomePageHeader";
+import getTeamsNames from "../functions/getTeamsNames";
 
 export default function HomePage() {
   const filesData = useContext(FilesContext);
   const [selectedMatch, setSelectedMatch] = useState(null);
-  const [error, setError] = useState({});
-
-  //Gets all the tournament matches (which are after date 26/6/2024)
-  const tournamentMatches = getTournamentMatches();
+  let error = "";
 
   let structuredMatches = [];
-  //Prevents from infinite re-renders
-  if (error.error === undefined) {
+  //Prevents from calling the functions again on error appearance
+  if (error === "") {
+    //Gets all the tournament matches (which are after date 26/6/2024)
+    const tournamentMatches = getTournamentMatches();
+
     //Gets more data for the matches such as team name, image and winner of the match
-    structuredMatches = getTeamsNames(tournamentMatches);
+    structuredMatches = structureMatchesData(tournamentMatches);
   }
 
+  //Sorts the finals in separated arrays
   const eighthFinals = structuredMatches.slice(0, 8);
   const quarterFinals = structuredMatches.slice(8, 12);
   const semiFinals = structuredMatches.slice(12, 14);
   const finals = structuredMatches.slice(14, 15);
+
+  //Groups all sorted finals
+  let allFinals = [
+    { finalsType: "eighthFinals", finals: eighthFinals },
+    { finalsType: "quarterFinals", finals: quarterFinals },
+    { finalsType: "semiFinals", finals: semiFinals },
+    { finalsType: "final", finals: finals },
+  ];
 
   useEffect(() => {
     //Sets the first state value always on the final
@@ -42,87 +52,35 @@ export default function HomePage() {
       //Parse date to work with multiple date formats
       let currentMatchDate = new Date(Date.parse(match.Date));
 
-      console.log(currentMatchDate);
+      //console.log(currentMatchDate);
 
       if (currentMatchDate > groupsFinalDate) return true;
 
       return false;
     });
 
-    console.log(filteredMatches.length);
     return filteredMatches;
   }
 
   //Gets the names of the teams and add them to the matches objects
-  function getTeamsNames(matches) {
-    if (matches.length === 0) {
-      setError({ error: "Invalid parameters" });
+  function structureMatchesData(matches) {
+    let structuredMatches;
+    structuredMatches = getTeamsNames(matches, filesData);
+
+    if (structuredMatches.error) {
+      error = structuredMatches.error;
       return [];
     }
-    if (!Array.isArray(matches)) {
-      setError({ error: "Invalid parameters" });
-      return [];
-    }
 
-    try {
-      //Gets file data for the teams
-      let teams = filesData.find(
-        (indexValue) => indexValue.dataType === "teams"
-      );
-
-      if (teams === undefined) {
-        setError({ error: "No teams found" });
-        return [];
-      }
-
-      let structuredMatches = matches.map((match) => {
-        //Finds the name of Team A
-        let teamA = teams.data.find(
-          (indexValue) => indexValue.ID === match.ATeamID
-        );
-        //Finds the name of Team B
-        let teamB = teams.data.find(
-          (indexValue) => indexValue.ID === match.BTeamID
-        );
-
-        let result = match.Score.split("-");
-        let winner = result[0] > result[1] ? teamA.Name : teamB.Name;
-
-        if (teamA && teamB) {
-          return {
-            ...match,
-            teamAName: teamA.Name,
-            teamAImage: teamA.Image,
-            teamBName: teamB.Name,
-            teamBImage: teamB.Image,
-            winner,
-          };
-        } else {
-          return {
-            ...match,
-            teamAName: "",
-            teamBName: "",
-            teamAImage: "",
-            teamBAImage: "",
-            winner: "",
-          };
-        }
-      });
-
-      if (structuredMatches.length !== 0) {
-        return structuredMatches;
-      } else {
-        setError({ error: "Invalid parameters" });
-        return [];
-      }
-    } catch (error) {
-      console.error(error);
-      setError({ error: error.message });
+    if (structuredMatches.length !== 0) {
+      return structuredMatches;
+    } else {
+      error = "Invalid parameters";
       return [];
     }
   }
 
-  if (error.error) return <div className="error">{error.error}</div>;
+  if (error !== "") return <div className="error">{error}</div>;
 
   return (
     <div className="home-page-main-div">
@@ -135,165 +93,46 @@ export default function HomePage() {
       <div className="tournament-structure">
         <img src="/TournamentStructure.png" />
         <div className="tournaments-view">
-          {/*eight finals*/}
-          <div className="eightFinals">
-            {eighthFinals.map((match, index) => (
-              <div
-                key={index}
-                className="match-names"
-                onClick={() => {
-                  setSelectedMatch(match);
-                }}
-              >
+          {allFinals.map((finals) => (
+            <div className={finals.finalsType}>
+              {finals.finals.map((match, index) => (
                 <div
-                  style={{
-                    backgroundColor:
-                      match.teamAName === match.winner
-                        ? "lightgreen"
-                        : "rgb(252, 28, 28)",
-                    borderStartEndRadius: "7px",
-                    borderStartStartRadius: "7px",
+                  key={index}
+                  className="match-names"
+                  onClick={() => {
+                    setSelectedMatch(match);
                   }}
                 >
-                  <p style={{ borderBottom: "2px solid black" }}>
-                    {match.teamAName}
-                  </p>
+                  <div
+                    style={{
+                      backgroundColor:
+                        match.teamAName === match.winner
+                          ? "lightgreen"
+                          : "rgb(252, 28, 28)",
+                      borderStartEndRadius: "7px",
+                      borderStartStartRadius: "7px",
+                    }}
+                  >
+                    <p style={{ borderBottom: "2px solid black" }}>
+                      {match.teamAName}
+                    </p>
+                  </div>
+                  <div
+                    style={{
+                      backgroundColor:
+                        match.teamBName === match.winner
+                          ? "lightgreen"
+                          : "rgb(252, 28, 28)",
+                      borderEndStartRadius: "7px",
+                      borderEndEndRadius: "7px",
+                    }}
+                  >
+                    <p>{match.teamBName}</p>
+                  </div>
                 </div>
-                <div
-                  style={{
-                    backgroundColor:
-                      match.teamBName === match.winner
-                        ? "lightgreen"
-                        : "rgb(252, 28, 28)",
-                    borderEndStartRadius: "7px",
-                    borderEndEndRadius: "7px",
-                  }}
-                >
-                  <p>{match.teamBName}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/*quarter finals*/}
-          <div className="quarterFinals">
-            {quarterFinals.map((match, index) => (
-              <div
-                key={index}
-                className="match-names"
-                onClick={() => {
-                  setSelectedMatch(match);
-                }}
-              >
-                <div
-                  style={{
-                    backgroundColor:
-                      match.teamAName === match.winner
-                        ? "lightgreen"
-                        : "rgb(252, 28, 28)",
-                    borderStartEndRadius: "7px",
-                    borderStartStartRadius: "7px",
-                  }}
-                >
-                  <p style={{ borderBottom: "2px solid black" }}>
-                    {match.teamAName}
-                  </p>
-                </div>
-                <div
-                  style={{
-                    backgroundColor:
-                      match.teamBName === match.winner
-                        ? "lightgreen"
-                        : "rgb(252, 28, 28)",
-                    borderEndStartRadius: "7px",
-                    borderEndEndRadius: "7px",
-                  }}
-                >
-                  <p>{match.teamBName}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/*semi finals*/}
-          <div className="semiFinals">
-            {semiFinals.map((match, index) => (
-              <div
-                key={index}
-                className="match-names"
-                onClick={() => {
-                  setSelectedMatch(match);
-                }}
-              >
-                <div
-                  style={{
-                    backgroundColor:
-                      match.teamAName === match.winner
-                        ? "lightgreen"
-                        : "rgb(252, 28, 28)",
-                    borderStartEndRadius: "7px",
-                    borderStartStartRadius: "7px",
-                  }}
-                >
-                  <p style={{ borderBottom: "2px solid black" }}>
-                    {match.teamAName}
-                  </p>
-                </div>
-                <div
-                  style={{
-                    backgroundColor:
-                      match.teamBName === match.winner
-                        ? "lightgreen"
-                        : "rgb(252, 28, 28)",
-                    borderEndStartRadius: "7px",
-                    borderEndEndRadius: "7px",
-                  }}
-                >
-                  <p>{match.teamBName}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/*final finals*/}
-          <div className="final">
-            {finals.map((match, index) => (
-              <div
-                key={index}
-                className="match-names"
-                onClick={() => {
-                  setSelectedMatch(match);
-                }}
-              >
-                <div
-                  style={{
-                    backgroundColor:
-                      match.teamAName === match.winner
-                        ? "lightgreen"
-                        : "rgb(252, 28, 28)",
-                    borderStartEndRadius: "7px",
-                    borderStartStartRadius: "7px",
-                  }}
-                >
-                  <p style={{ borderBottom: "2px solid black" }}>
-                    {match.teamAName}
-                  </p>
-                </div>
-                <div
-                  style={{
-                    backgroundColor:
-                      match.teamBName === match.winner
-                        ? "lightgreen"
-                        : "rgb(252, 28, 28)",
-                    borderEndStartRadius: "7px",
-                    borderEndEndRadius: "7px",
-                  }}
-                >
-                  <p>{match.teamBName}</p>
-                </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          ))}
         </div>
       </div>
 

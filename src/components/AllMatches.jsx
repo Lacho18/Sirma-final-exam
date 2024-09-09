@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { FilesContext } from "../context/FilesContext";
 import "../styles/AllMatches.css";
 import SelectedMatch from "./HomePageComp/SelectedMatch";
+import getTeamsNames from "../functions/getTeamsNames";
 
 export default function AllMatches() {
   const filesData = useContext(FilesContext);
@@ -27,54 +28,25 @@ export default function AllMatches() {
           return { error: "No matches found" };
         }
 
-        const structuredData = [];
+        let structuredData = getTeamsNames(matches.data, filesData);
 
-        let teams = filesData.find(
-          (indexValue) => indexValue.dataType === "teams"
-        );
+        console.log(structuredData);
 
-        if (teams === undefined) {
-          return { error: "No teams found" };
-        }
-
-        matches.data.forEach((match) => {
-          //Finds the name of Team A
-          let teamA = teams.data.find(
-            (indexValue) => indexValue.ID === match.ATeamID
-          );
-          //Finds the name of Team B
-          let teamB = teams.data.find(
-            (indexValue) => indexValue.ID === match.BTeamID
-          );
-
-          let result = match.Score.split("-");
-          let winner = result[0] > result[1] ? teamA.Name : teamB.Name;
-
-          //Option for date format
+        //Adds formatted date field
+        structuredData = structuredData.map((data) => {
           let options = {
             year: "numeric",
             month: "long",
             day: "2-digit",
           };
 
-          let date = new Date(Date.parse(match.Date));
+          let date = new Date(Date.parse(data.Date));
           //Formatting date object
           let formattedDate = new Intl.DateTimeFormat("en-US", options).format(
             date
           );
 
-          //If both teamed found, push the updated object to structuredData array
-          if (teamA && teamB) {
-            structuredData.push({
-              ...match,
-              teamAName: teamA.Name,
-              teamAImage: teamA.Image,
-              teamBName: teamB.Name,
-              teamBImage: teamB.Image,
-              formattedDate,
-              winner,
-            });
-          }
+          return { ...data, formattedDate };
         });
 
         console.log(structuredData);
