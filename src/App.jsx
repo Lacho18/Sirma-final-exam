@@ -12,10 +12,10 @@ import RouteNotFoundPage from "./components/404Page";
 function App() {
   //all files path
   const paths = [
-    "/data/matches.csv",
-    "/data/players.csv",
-    "/data/records.csv",
-    "/data/teams.csv",
+    "/Sirma-final-exam/data/matches.csv",
+    "/Sirma-final-exam/data/players.csv",
+    "/Sirma-final-exam/data/records.csv",
+    "/Sirma-final-exam/data/teams.csv",
   ];
 
   const allFilesData = useReadFiles(paths);
