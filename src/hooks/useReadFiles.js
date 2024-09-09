@@ -58,8 +58,6 @@ const useReadFiles = (filePaths) => {
         useEffectFunction();
     }, []);
 
-    console.log(filesData);
-
     return filesData;
 }
 

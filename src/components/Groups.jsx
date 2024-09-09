@@ -13,7 +13,6 @@ export default function Groups() {
     return <div className="error">No teams found</div>;
   }
 
-  //Handle errors
   let error = "";
 
   //array of every group
@@ -33,8 +32,8 @@ export default function Groups() {
       };
 
       //filters the current object by the given group
-      objStructure.teams = teamsData.data.filter((team) =>
-        team.Group.includes(singleGroup)
+      objStructure.teams = teamsData.data.filter(
+        (team) => team.Group === singleGroup
       );
 
       if (objStructure.teams.length === 0) {

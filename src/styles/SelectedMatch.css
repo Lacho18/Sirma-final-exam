@@ -19,6 +19,17 @@
     justify-content: space-between;
 }
 
+@media screen and (max-width: 768px) {
+    .selected-match {
+        width: 100%;
+    }
+
+    .selected-match-info {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
 .selected-match-info img {
     width: 200px;
     height: 200px;

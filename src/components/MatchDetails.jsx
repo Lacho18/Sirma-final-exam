@@ -90,6 +90,11 @@ export default function MatchDetails() {
 
       //Setting the winner of the match
       let result = selectedMatch.Score.split("-");
+
+      if (result.length !== 2) {
+        return { error: "Invalid Score" };
+      }
+
       selectedMatch.winner =
         result[0] > result[1]
           ? selectedMatch.teamAData.Name

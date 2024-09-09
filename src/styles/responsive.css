@@ -1,0 +1,140 @@
+@media screen and (max-width: 768px) {
+
+    /*Home page component*/
+    .home-page-header {
+        height: auto;
+        padding: 0;
+    }
+
+    .home-page-header>div {
+        flex-direction: column-reverse;
+    }
+
+    .home-page-header p {
+        margin: 70px;
+        position: relative;
+
+        transform: translateX(12.5%);
+    }
+
+    #header-home-image {
+        width: 100%;
+        height: 400px;
+    }
+
+    #trophy-image {
+        display: none;
+    }
+
+    /*All matches component*/
+    .allMatches-view {
+        width: 75%;
+        display: inline;
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+        margin: 0;
+    }
+
+    .selected-match .result {
+        padding: 30px 0;
+    }
+
+    /*Navigation component*/
+    .navigation-links * {
+        justify-content: center;
+        margin: 0;
+    }
+
+    /*Match details component*/
+    .match-result-view {
+        height: auto;
+    }
+
+    .match-result-view>div {
+        flex-direction: column;
+    }
+
+    .match-result-view>div>* {
+        margin-bottom: 10px;
+    }
+
+    .stadium-div {
+        width: 100%;
+    }
+
+    .team-details-box {
+        flex-direction: column;
+        width: 100%;
+        height: auto;
+    }
+
+    .team-details-box>div {
+        margin: 20px 0;
+    }
+
+    .team-info-details {
+        flex-direction: row;
+    }
+
+    /*Groups component*/
+    .team-group-stats {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .team-group-stats>div {
+        margin: 20px 0;
+    }
+
+    .team-stats-left {
+        flex-direction: row;
+    }
+
+    .team-stats-left img {
+        width: 150px;
+        height: 120px;
+    }
+
+    .team-stats-left p {
+        font-size: 1.5em;
+    }
+
+    .groups-stats-text {
+        display: none;
+    }
+
+    .team-stats-right>div {
+        height: 400px;
+    }
+
+    .group-matches-title {
+        margin-bottom: 40px;
+    }
+
+    .selected-matches-groups .selected-match {
+        margin: 0;
+        padding: 0;
+        margin-bottom: 30px;
+        padding-bottom: 15px;
+    }
+}
+
+@media screen and (max-width: 646px) {
+    .group-section-line img {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 510px) {
+    .allMatches-main-div * {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+@media screen and (max-width: 435px) {
+    .navigation-links * {
+        font-size: 1em;
+    }
+}

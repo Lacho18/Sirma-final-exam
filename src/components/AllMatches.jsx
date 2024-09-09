@@ -12,7 +12,7 @@ export default function AllMatches() {
 
   useEffect(() => {
     const structuredMatches = getAllMatchesData();
-    if (structuredMatches.error) {
+    if (structuredMatches.length === 0) {
       error = structuredMatches.error;
     } else {
       setMatches(structuredMatches);
@@ -80,8 +80,6 @@ export default function AllMatches() {
     });
   }
 
-  console.log(matches);
-
   if (error !== "") return <div className="error">{error}</div>;
 
   return (
@@ -103,7 +101,7 @@ export default function AllMatches() {
         ) : (
           <div className="selected-match-allMatches">
             {matches?.map((match) => (
-              <React.Fragment key={match.id}>
+              <React.Fragment key={match.ID}>
                 <p className="match-date">{match.formattedDate}</p>
                 <SelectedMatch key={match.ID} selectedMatch={match} />
               </React.Fragment>

@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FilesContext } from "../context/FilesContext";
 import "../styles/HomePage.css";
 import SelectedMatch from "./HomePageComp/SelectedMatch";
