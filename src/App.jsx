@@ -2,7 +2,6 @@ import useReadFiles from "./hooks/useReadFiles";
 import { Route, Routes } from "react-router-dom";
 import HomePage from "./components/Homepage";
 import MatchDetails from "./components/MatchDetails";
-import TeamDetails from "./components/TeamDetails";
 import { FilesContext } from "./context/FilesContext";
 import Groups from "./components/Groups";
 import Navigation from "./components/Navigation";
@@ -31,7 +30,6 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/Sirma-final-exam/" element={<HomePage />} />
           <Route path="/matchDetails/:id" element={<MatchDetails />} />
-          <Route path="/teamDetails" element={<TeamDetails />} />
           <Route path="/groups" element={<Groups />} />
           <Route path="/allMatches" element={<AllMatches />} />
           <Route path="/*" element={<RouteNotFoundPage />} />
