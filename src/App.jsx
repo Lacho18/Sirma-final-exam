@@ -12,10 +12,10 @@ import RouteNotFoundPage from "./components/404Page";
 function App() {
   //all files path
   const paths = [
-    "/data/matches.csv",
-    "/data/players.csv",
-    "/data/records.csv",
-    "/data/teams.csv",
+    "public/data/matches.csv",
+    "public/data/players.csv",
+    "public/data/records.csv",
+    "public/data/teams.csv",
   ];
 
   const allFilesData = useReadFiles(paths);
@@ -29,6 +29,7 @@ function App() {
         <Navigation />
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/Sirma-final-exam/" element={<HomePage />} />
           <Route path="/matchDetails/:id" element={<MatchDetails />} />
           <Route path="/teamDetails" element={<TeamDetails />} />
           <Route path="/groups" element={<Groups />} />
