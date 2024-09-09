@@ -187,6 +187,14 @@
     .team-info-details p {
         font-size: 2em;
     }
+
+    .match-result {
+        padding: 0;
+    }
+
+    .left-result {
+        font-size: 0.50em;
+    }
 }
 
 @media screen and (max-width: 435px) {
