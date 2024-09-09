@@ -4,6 +4,7 @@ import "../styles/HomePage.css";
 import SelectedMatch from "./HomePageComp/SelectedMatch";
 import HomePageHeader from "./HomePageComp/HomePageHeader";
 import getTeamsNames from "../functions/getTeamsNames";
+import TournamentElement from "./HomePageComp/TournamentElement";
 
 export default function HomePage() {
   const filesData = useContext(FilesContext);
@@ -28,7 +29,7 @@ export default function HomePage() {
 
   //Groups all sorted finals
   let allFinals = [
-    { finalsType: "eighthFinals", finals: eighthFinals },
+    { finalsType: "eightFinals", finals: eighthFinals },
     { finalsType: "quarterFinals", finals: quarterFinals },
     { finalsType: "semiFinals", finals: semiFinals },
     { finalsType: "final", finals: finals },
@@ -45,14 +46,17 @@ export default function HomePage() {
       (indexValue) => indexValue.dataType === "matches"
     );
 
+    if (matches === undefined) {
+      error = "No matches found";
+      return [];
+    }
+
     //The last date of groups
     const groupsFinalDate = new Date(Date.parse("Jun 26, 2024"));
 
     const filteredMatches = matches.data.filter((match) => {
       //Parse date to work with multiple date formats
       let currentMatchDate = new Date(Date.parse(match.Date));
-
-      //console.log(currentMatchDate);
 
       if (currentMatchDate > groupsFinalDate) return true;
 
@@ -94,42 +98,13 @@ export default function HomePage() {
         <img src="/TournamentStructure.png" />
         <div className="tournaments-view">
           {allFinals.map((finals) => (
-            <div className={finals.finalsType}>
+            <div key={finals.finalsType} className={finals.finalsType}>
               {finals.finals.map((match, index) => (
-                <div
+                <TournamentElement
                   key={index}
-                  className="match-names"
-                  onClick={() => {
-                    setSelectedMatch(match);
-                  }}
-                >
-                  <div
-                    style={{
-                      backgroundColor:
-                        match.teamAName === match.winner
-                          ? "lightgreen"
-                          : "rgb(252, 28, 28)",
-                      borderStartEndRadius: "7px",
-                      borderStartStartRadius: "7px",
-                    }}
-                  >
-                    <p style={{ borderBottom: "2px solid black" }}>
-                      {match.teamAName}
-                    </p>
-                  </div>
-                  <div
-                    style={{
-                      backgroundColor:
-                        match.teamBName === match.winner
-                          ? "lightgreen"
-                          : "rgb(252, 28, 28)",
-                      borderEndStartRadius: "7px",
-                      borderEndEndRadius: "7px",
-                    }}
-                  >
-                    <p>{match.teamBName}</p>
-                  </div>
-                </div>
+                  match={match}
+                  setSelectedMatch={(matchData) => setSelectedMatch(matchData)}
+                />
               ))}
             </div>
           ))}

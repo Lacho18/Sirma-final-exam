@@ -15,9 +15,6 @@ export default function MatchDetails() {
     teamB: matchData.playersTeamB ? setPositions(matchData?.playersTeamB) : {},
   };
 
-  console.log(matchData);
-  console.log(positions);
-
   useEffect(() => {
     const structuredMatch = getMatchData();
     setMatchData(structuredMatch);

@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { FilesContext } from "../context/FilesContext";
 import "../styles/Groups.css";
-import GroupSection from "./HomePageComp/GroupSection";
+import GroupSection from "./Groups/GroupSection";
 import SelectedTeamGroup from "./Groups/SelectedTeamGroup";
 
 export default function Groups() {
@@ -9,6 +9,10 @@ export default function Groups() {
   const [selectedTeam, setSelectedTeam] = useState(null);
   //Gets only the teams data
   const teamsData = filesData.find((file) => file.dataType === "teams");
+  if (teamsData === undefined) {
+    return <div className="error">No teams found</div>;
+  }
+
   //Handle errors
   let error = "";
 
@@ -57,8 +61,6 @@ export default function Groups() {
   }
 
   let groupedTeams = getTeamsByGroup(groups);
-
-  console.log(groupedTeams);
 
   if (error !== "") return <div className="error">{error}</div>;
 

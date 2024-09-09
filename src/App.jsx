@@ -7,6 +7,7 @@ import { FilesContext } from "./context/FilesContext";
 import Groups from "./components/Groups";
 import Navigation from "./components/Navigation";
 import AllMatches from "./components/AllMatches";
+import RouteNotFoundPage from "./components/404Page";
 
 function App() {
   //all files path
@@ -19,7 +20,8 @@ function App() {
 
   const allFilesData = useReadFiles(paths);
 
-  if (allFilesData.length === 0) return <div>Loading....</div>;
+  if (allFilesData.length === 0)
+    return <div className="error">Reading files data....</div>;
 
   return (
     <FilesContext.Provider value={allFilesData}>
@@ -31,6 +33,7 @@ function App() {
           <Route path="/teamDetails" element={<TeamDetails />} />
           <Route path="/groups" element={<Groups />} />
           <Route path="/allMatches" element={<AllMatches />} />
+          <Route path="/*" element={<RouteNotFoundPage />} />
         </Routes>
       </div>
     </FilesContext.Provider>

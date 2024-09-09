@@ -1,3 +1,4 @@
+import React from "react";
 import { useContext, useEffect, useState } from "react";
 import { FilesContext } from "../context/FilesContext";
 import "../styles/AllMatches.css";
@@ -6,15 +7,16 @@ import getTeamsNames from "../functions/getTeamsNames";
 
 export default function AllMatches() {
   const filesData = useContext(FilesContext);
-  const [matches, setMatches] = useState({
-    data: [],
-  });
-
-  console.log(matches);
+  const [matches, setMatches] = useState([]);
+  let error = "";
 
   useEffect(() => {
     const structuredMatches = getAllMatchesData();
-    setMatches(structuredMatches);
+    if (structuredMatches.error) {
+      error = structuredMatches.error;
+    } else {
+      setMatches(structuredMatches);
+    }
   }, []);
 
   function getAllMatchesData() {
@@ -25,12 +27,11 @@ export default function AllMatches() {
         );
 
         if (matches === undefined) {
-          return { error: "No matches found" };
+          error = "No matches found";
+          return [];
         }
 
         let structuredData = getTeamsNames(matches.data, filesData);
-
-        console.log(structuredData);
 
         //Adds formatted date field
         structuredData = structuredData.map((data) => {
@@ -49,12 +50,11 @@ export default function AllMatches() {
           return { ...data, formattedDate };
         });
 
-        console.log(structuredData);
-
-        return { data: structuredData };
+        return structuredData;
       } catch (error) {
         console.error(error);
-        return { error: error.message };
+        error = error.message;
+        return [];
       }
     }
   }
@@ -71,20 +71,18 @@ export default function AllMatches() {
 
     //Filters the matches.data array
     setMatches((oldMatches) => {
-      let newMatches = {
-        data: [],
-      };
-      newMatches.data = oldMatches.data.filter(
+      let newMatches = [];
+      newMatches = oldMatches.filter(
         (match) => regex.test(match.teamAName) || regex.test(match.teamBName)
       );
-
-      console.log(newMatches);
 
       return newMatches;
     });
   }
 
-  if (matches.error) return <div className="error">{matches.error}</div>;
+  console.log(matches);
+
+  if (error !== "") return <div className="error">{error}</div>;
 
   return (
     <div className="allMatches-main-div">
@@ -95,7 +93,7 @@ export default function AllMatches() {
         onChange={changeHandler}
       />
       <div className="allMatches-view">
-        {matches.data.length === 0 ? (
+        {matches.length === 0 ? (
           <div
             className=""
             style={{ color: "white", fontSize: "1.25em", paddingTop: "10px" }}
@@ -104,11 +102,11 @@ export default function AllMatches() {
           </div>
         ) : (
           <div className="selected-match-allMatches">
-            {matches?.data.map((match) => (
-              <>
+            {matches?.map((match) => (
+              <React.Fragment key={match.id}>
                 <p className="match-date">{match.formattedDate}</p>
                 <SelectedMatch key={match.ID} selectedMatch={match} />
-              </>
+              </React.Fragment>
             ))}
           </div>
         )}

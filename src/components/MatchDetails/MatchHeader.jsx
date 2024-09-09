@@ -1,6 +1,5 @@
 export default function MatchHeader({ matchData }) {
   const result = matchData.Score.split("-");
-  console.log(matchData);
   return (
     <div className="match-result">
       <div className="result-view">
