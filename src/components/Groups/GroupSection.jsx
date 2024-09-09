@@ -12,14 +12,7 @@ export default function GroupSection({ groupData, selectionHandle }) {
             className="group-section-line"
             onClick={() => selectionHandle(indexValue.ID)}
           >
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                gap: "50%",
-              }}
-            >
+            <div className="group-section-line-left">
               <p>{index + 1}</p>
               <img src={indexValue.Image} alt="null" />
               <p>{indexValue.Name}</p>

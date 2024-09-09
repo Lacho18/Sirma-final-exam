@@ -31,6 +31,11 @@
     z-index: 10;
 }
 
+.bracket-view-text {
+    font-size: 2em;
+    color: white;
+}
+
 /*Positioning of the tournament elements*/
 .tournaments-view {
     width: 80%;

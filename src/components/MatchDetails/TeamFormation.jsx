@@ -1,6 +1,10 @@
 export default function TeamFormation({ teamData, teamPositions }) {
   return (
-    <div id={teamData.Name + "Formation"} style={{ padding: "30px 0" }}>
+    <div
+      id={teamData.Name + "Formation"}
+      className="team-formation-main-div"
+      style={{ padding: "30px 0" }}
+    >
       <div className="title-formation">
         <img src={teamData.Image} />
         <p>{teamData.Name}</p>

@@ -10,11 +10,19 @@
         flex-direction: column-reverse;
     }
 
-    .home-page-header p {
-        margin: 70px;
-        position: relative;
+    .home-header-left {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 50px 0;
+    }
 
-        transform: translateX(12.5%);
+    .home-header-left p {
+        font-size: 0.75em;
+    }
+
+    .bracket-view-text {
+        font-size: 1em;
     }
 
     #header-home-image {
@@ -24,6 +32,10 @@
 
     #trophy-image {
         display: none;
+    }
+
+    .selected-match-div {
+        width: 75%;
     }
 
     /*All matches component*/
@@ -130,6 +142,50 @@
     .allMatches-main-div * {
         padding-left: 0;
         padding-right: 0;
+    }
+
+    #header-home-image {
+        height: 300px;
+    }
+
+    .group-section-line>* {
+        justify-content: flex-start;
+        gap: 0;
+    }
+
+    .selected-matches-groups {
+        width: 100%;
+    }
+
+    /*Match details component*/
+
+    .teams-formation {
+        padding: 0;
+    }
+
+    .teams-formation>div {
+        width: 100%;
+    }
+
+    .uefa-cup-image {
+        display: none;
+    }
+
+    .match-result-view {
+        margin-left: 10px;
+    }
+
+    .match-navigation {
+        font-size: 0.75em;
+    }
+
+    .team-info-details img {
+        width: 200px;
+        height: 140px;
+    }
+
+    .team-info-details p {
+        font-size: 2em;
     }
 }
 

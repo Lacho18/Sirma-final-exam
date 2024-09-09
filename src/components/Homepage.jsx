@@ -91,7 +91,7 @@ export default function HomePage() {
       <div className="home-page-header">
         <HomePageHeader />
       </div>
-      <p style={{ fontSize: "2em", color: "white" }}>
+      <p className="bracket-view-text">
         Bracket view of all matches in the tournament
       </p>
       <div className="tournament-structure">
