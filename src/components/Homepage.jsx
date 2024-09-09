@@ -95,7 +95,7 @@ export default function HomePage() {
         Bracket view of all matches in the tournament
       </p>
       <div className="tournament-structure">
-        <img src="public/TournamentStructure.png" />
+        <img src="/TournamentStructure.png" />
         <div className="tournaments-view">
           {allFinals.map((finals) => (
             <div key={finals.finalsType} className={finals.finalsType}>

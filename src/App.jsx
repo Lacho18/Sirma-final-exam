@@ -12,10 +12,10 @@ import RouteNotFoundPage from "./components/404Page";
 function App() {
   //all files path
   const paths = [
-    "public/data/matches.csv",
-    "public/data/players.csv",
-    "public/data/records.csv",
-    "public/data/teams.csv",
+    "/data/matches.csv",
+    "/data/players.csv",
+    "/data/records.csv",
+    "/data/teams.csv",
   ];
 
   const allFilesData = useReadFiles(paths);

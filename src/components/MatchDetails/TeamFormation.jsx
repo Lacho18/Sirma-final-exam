@@ -16,7 +16,7 @@ export default function TeamFormation({ teamData, teamPositions }) {
           Formation {teamPositions.formation}
         </p>
         <div className="stadium-div">
-          <img src="public/stadium.avif" />
+          <img src="/stadium.avif" />
           <div
             className={"formation-heroes formation-" + teamPositions.formation}
           >
