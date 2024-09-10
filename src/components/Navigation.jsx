@@ -7,9 +7,9 @@ export default function Navigation() {
     <div className="navigation">
       <img src="/Sirma-final-exam/euro-img1_0.png" />
       <div className="navigation-links">
-        <Link to="/">Home</Link>
-        <Link to="/groups">Groups</Link>
-        <Link to="/allMatches">All matches</Link>
+        <Link to="/Sirma-final-exam/">Home</Link>
+        <Link to="/Sirma-final-exam/groups">Groups</Link>
+        <Link to="/Sirma-final-exam/allMatches">All matches</Link>
       </div>
     </div>
   );

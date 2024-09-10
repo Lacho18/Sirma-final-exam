@@ -53,6 +53,7 @@ export default function MatchDetails() {
         (player) => Number(player.TeamID) === Number(selectedMatch.ATeamID)
       );
 
+      //Finds the players from BTeam and sets them to field 'playersTeamB'
       selectedMatch.playersTeamB = players.data.filter(
         (player) => Number(player.TeamID) === Number(selectedMatch.BTeamID)
       );

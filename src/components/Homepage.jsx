@@ -69,6 +69,7 @@ export default function HomePage() {
   //Gets the names of the teams and add them to the matches objects
   function structureMatchesData(matches) {
     let structuredMatches;
+    //Function that by given array of matches, return the same array with data about the names, images and who is the winner
     structuredMatches = getTeamsNames(matches, filesData);
 
     if (structuredMatches.error) {

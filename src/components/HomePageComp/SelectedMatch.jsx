@@ -25,7 +25,7 @@ export default function SelectedMatch({ selectedMatch }) {
       </div>
       <Link
         style={{ color: "#11123d" }}
-        to={`/matchDetails/${selectedMatch.ID}`}
+        to={`/Sirma-final-exam/matchDetails/${selectedMatch.ID}`}
       >
         View more
       </Link>

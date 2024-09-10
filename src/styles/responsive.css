@@ -59,6 +59,11 @@
     }
 
     /*Match details component*/
+    .match-navigation {
+        font-size: 0.75em;
+        padding: 0;
+    }
+
     .match-result-view {
         height: auto;
     }
@@ -87,6 +92,15 @@
 
     .team-info-details {
         flex-direction: row;
+    }
+
+    .team-info-details img {
+        width: 200px;
+        height: 140px;
+    }
+
+    .team-info-details p {
+        font-size: 2em;
     }
 
     /*Groups component*/
@@ -176,8 +190,10 @@
     }
 
     .match-navigation {
-        font-size: 0.75em;
+        font-size: 0.60em;
+        height: 60px;
         padding: 0;
+        box-sizing: unset;
     }
 
     .team-info-details img {

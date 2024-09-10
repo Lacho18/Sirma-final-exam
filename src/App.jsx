@@ -29,10 +29,13 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/Sirma-final-exam/" element={<HomePage />} />
-          <Route path="/matchDetails/:id" element={<MatchDetails />} />
-          <Route path="/groups" element={<Groups />} />
-          <Route path="/allMatches" element={<AllMatches />} />
-          <Route path="/*" element={<RouteNotFoundPage />} />
+          <Route
+            path="/Sirma-final-exam/matchDetails/:id"
+            element={<MatchDetails />}
+          />
+          <Route path="/Sirma-final-exam/groups" element={<Groups />} />
+          <Route path="/Sirma-final-exam/allMatches" element={<AllMatches />} />
+          <Route path="/Sirma-final-exam/*" element={<RouteNotFoundPage />} />
         </Routes>
       </div>
     </FilesContext.Provider>

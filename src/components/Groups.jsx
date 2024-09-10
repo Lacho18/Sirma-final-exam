@@ -7,6 +7,7 @@ import SelectedTeamGroup from "./Groups/SelectedTeamGroup";
 export default function Groups() {
   const filesData = useContext(FilesContext);
   const [selectedTeam, setSelectedTeam] = useState(null);
+
   //Gets only the teams data
   const teamsData = filesData.find((file) => file.dataType === "teams");
   if (teamsData === undefined) {
@@ -55,6 +56,7 @@ export default function Groups() {
     setSelectedTeam(teamSelected);
   }
 
+  //Nulls the state
   function nullSelectionHandle() {
     setSelectedTeam(null);
   }

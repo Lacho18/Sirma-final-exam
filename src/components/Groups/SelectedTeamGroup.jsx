@@ -9,6 +9,7 @@ export default function SelectedTeamGroup({
 }) {
   const [teamData, setTeamData] = useState({});
   let statistics = setGroupStats(selectedTeam, teamData?.data);
+  let error = "";
 
   useEffect(() => {
     const structuredMatches = getSelectedTeamData();
@@ -22,17 +23,19 @@ export default function SelectedTeamGroup({
       );
 
       if (matches === undefined) {
-        return { error: "Matches not found" };
+        error = "Matches not found";
+        return {};
       }
 
       //Finds all matches that selected team participated
-      const selectedMatches = matches.data.filter(
+      const selectedMatches = maches.data.filter(
         (match) =>
           match.ATeamID === selectedTeam.ID || match.BTeamID === selectedTeam.ID
       );
 
       if (selectedMatches.length === 0) {
-        return { error: "This team has not participated in any matches!" };
+        error = "This team has not participated in any matches!";
+        return {};
       }
 
       //Removes the matches from the tournament if there are any
@@ -50,6 +53,7 @@ export default function SelectedTeamGroup({
       return { data: structuredMatches };
     } catch (error) {
       console.log(error);
+      error = error.message;
     }
   }
 
@@ -80,7 +84,8 @@ export default function SelectedTeamGroup({
     return stats;
   }
 
-  if (teamData.error) return <div className="error">{teamData.error}</div>;
+  if (!teamData.ID) return <div>Loading...</div>;
+  if (error !== "") return <div className="error">{error}</div>;
 
   return (
     <div className="group-section-main-div selected-team-div">
