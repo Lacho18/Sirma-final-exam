@@ -28,7 +28,7 @@ export default function SelectedTeamGroup({
       }
 
       //Finds all matches that selected team participated
-      const selectedMatches = maches.data.filter(
+      const selectedMatches = matches.data.filter(
         (match) =>
           match.ATeamID === selectedTeam.ID || match.BTeamID === selectedTeam.ID
       );
@@ -84,8 +84,8 @@ export default function SelectedTeamGroup({
     return stats;
   }
 
-  if (!teamData.ID) return <div>Loading...</div>;
   if (error !== "") return <div className="error">{error}</div>;
+  if (Object.keys(teamData).length === 0) return <div>Loading...</div>;
 
   return (
     <div className="group-section-main-div selected-team-div">
